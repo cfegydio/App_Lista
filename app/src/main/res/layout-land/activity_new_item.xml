@@ -7,7 +7,7 @@
     tools:context=".activity.NewItemActivity">
 
     <ImageView
-        android:id="@+id/imvPhtoPreview"
+        android:id="@+id/imvPhotoPreview"
         android:layout_width="260dp"
         android:layout_height="260dp"
         android:layout_marginStart="8dp"
@@ -25,7 +25,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@+id/etDesc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvPhtoPreview"
+        app:layout_constraintTop_toBottomOf="@+id/imvPhotoPreview"
         app:srcCompat="@android:drawable/ic_menu_crop" />
 
     <EditText
@@ -40,7 +40,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imvPhtoPreview"
+        app:layout_constraintStart_toEndOf="@+id/imvPhotoPreview"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnAddItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"
-        app:layout_constraintStart_toEndOf="@+id/imvPhtoPreview"
+        app:layout_constraintStart_toEndOf="@+id/imvPhotoPreview"
         app:layout_constraintTop_toBottomOf="@+id/etTitle"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
