@@ -36,8 +36,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FloatingActionButton fabAddItem = findViewById(fabAddNewItem);
+        // ouvidor de clique
         fabAddItem.setOnClickListener((new View.OnClickListener() {
             @Override
+
+            // intent de navegação para new activity e retorna os dados no request
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, NewItemActivity.class);
                 startActivityForResult(i,NEW_ITEM_REQUEST);
@@ -46,14 +49,18 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView rvItens = findViewById(R.id.rvItens);
 
+        // criando myAdapter e setando no recycleView
         myAdapter = new MyAdapter(this,itens);
         rvItens.setAdapter(myAdapter);
 
+        // mantem o padrao de tamanho dos itens
         rvItens.setHasFixedSize(true);
 
+        // gerenciador de layout para mostrar a lista em sequencia
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvItens.setLayoutManager(layoutManager);
 
+        // separar os itens da lista
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvItens.getContext(),DividerItemDecoration.VERTICAL);
         rvItens.addItemDecoration(dividerItemDecoration);
     }
@@ -61,14 +68,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // verificação de retorno
         if (requestCode == NEW_ITEM_REQUEST){
             if (resultCode == Activity.RESULT_OK){
                 MyItem myItem = new MyItem();
+
+                // dados retornados por newItemActiviy e guarda em myItem
                 myItem.title = data.getStringExtra("title");
                 myItem.description = data.getStringExtra("description");
                 myItem.photo = data.getData();
 
+                // adiciona na lista
                 itens.add(myItem);
+
+                // notifica o adapter para mostrar o novo item no RecicleView
                 myAdapter.notifyItemInserted(itens.size()-1);
 
             }

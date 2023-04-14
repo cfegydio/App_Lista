@@ -32,6 +32,8 @@ public class NewItemActivity extends AppCompatActivity {
         imgCI.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // intent para abrir documento / depois seta ela para pegar apenas as imagens / executamos no start
                 Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, PHOTO_PICKER_REQUEST);
@@ -42,10 +44,13 @@ public class NewItemActivity extends AppCompatActivity {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // verificação de preenchimento / caso não tenha nada inserido informa mensagens de erro
                 if (photoSelect == null){
                     Toast.makeText(NewItemActivity.this, "É necessário selecionar uma imagem!", Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 EditText etTitle = findViewById(R.id.etTitle);
                 String title = etTitle.getText().toString();
                 if (title.isEmpty()){
@@ -60,10 +65,13 @@ public class NewItemActivity extends AppCompatActivity {
                     return;
                 }
 
+                // intent para guardar os dados / as outras linhas são para setar os dados inseridos
                 Intent i = new Intent();
                 i.setData(photoSelect);
                 i.putExtra("title", title);
                 i.putExtra("description",description);
+
+                // confirmação de retorno dos dados
                 setResult(Activity.RESULT_OK,i);
                 finish();
             }
@@ -71,6 +79,8 @@ public class NewItemActivity extends AppCompatActivity {
     }
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // verificamos as informações / guardamos no Uri para ser exibida
         if (requestCode == PHOTO_PICKER_REQUEST){
             if (resultCode == Activity.RESULT_OK){
                 photoSelect = data.getData();
