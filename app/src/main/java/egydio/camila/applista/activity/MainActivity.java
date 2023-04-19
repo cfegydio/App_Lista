@@ -11,18 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.service.controls.actions.FloatAction;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import egydio.camila.applista.R;
 import egydio.camila.applista.adapter.MyAdapter;
 import egydio.camila.applista.model.MyItem;
+import egydio.camila.applista.model.Util;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,7 +81,18 @@ public class MainActivity extends AppCompatActivity {
                 // dados retornados por newItemActiviy e guarda em myItem
                 myItem.title = data.getStringExtra("title");
                 myItem.description = data.getStringExtra("description");
-                myItem.photo = data.getData();
+                Uri selectedPhotoURI = data.getData();
+
+                // carrega a imagem e guarda uma cópia no Bitmap
+                try {
+                    Bitmap photo = Util.getBitmap(MainActivity.this, selectedPhotoURI, 100,100);
+                    myItem.photo = photo;
+                }
+
+                //guarda o Bitmap dentro de um objeto do MyItem
+                catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
 
                 // adiciona na lista
                 itens.add(myItem);
