@@ -1,10 +1,10 @@
 package egydio.camila.applista.activity;
 
 import static egydio.camila.applista.R.id.fabAddNewItem;
-import static egydio.camila.applista.R.id.rvItens;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +14,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.service.controls.actions.FloatAction;
 import android.view.View;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.FileNotFoundException;
@@ -25,6 +23,7 @@ import java.util.List;
 
 import egydio.camila.applista.R;
 import egydio.camila.applista.adapter.MyAdapter;
+import egydio.camila.applista.model.MainActivityViewModel;
 import egydio.camila.applista.model.MyItem;
 import egydio.camila.applista.model.Util;
 
@@ -52,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         RecyclerView rvItens = findViewById(R.id.rvItens);
+        // viewmodel obtida e repassada para o adapter
+        MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        List<MyItem> itens = vm.getItens();
 
         // criando myAdapter e setando no recycleView
         myAdapter = new MyAdapter(this,itens);
@@ -93,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
                 catch (FileNotFoundException e){
                     e.printStackTrace();
                 }
+
+                // obtem a lista guardada no viewmodel e guarda o novo item
+                MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+                List<MyItem> itens = vm.getItens();
 
                 // adiciona na lista
                 itens.add(myItem);

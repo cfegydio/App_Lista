@@ -1,8 +1,11 @@
 package egydio.camila.applista.model;
 
 import android.net.Uri;
+import android.view.View;
 
-public class NewItemActivityViewModel {
+import androidx.lifecycle.ViewModel;
+
+public class NewItemActivityViewModel extends ViewModel {
     // guarda o endereço da foto
     Uri selectPhotoLocation =null;
 
